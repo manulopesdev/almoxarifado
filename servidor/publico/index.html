@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Almoxarifado Bombeiros</title>
+  <style>
+    table { border-collapse: collapse; }
+    th, td { border: 1px solid #999; padding: 6px 12px; }
+    .alerta { background: #ffd6d6; color: #a00000; font-weight: bold; }
+    .erro { color: #a00000; font-weight: bold; }
+    .sucesso { color: #20a000; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Almoxarifado</h1>
+  <form id="form-movimento">
+    <input type="text" id="campo-nome" placeholder="Nome do item" required>
+    <input type="number" id="campo-qtd" placeholder="Quantidade" min="1" required>
+    <button type="submit" id="btn-entrada">Dar entrada</button>
+    <button type="submit" id="btn-baixa">Dar baixa</button>
+  </form>
+  <p id="mensagem"></p>
+  <table>
+    <thead>
+      <tr><th>Item</th><th>Quantidade</th><th>Mínimo</th></tr>
+    </thead>
+    <tbody id="corpo-tabela"></tbody>
+  </table>
+
+  <script src="estoque.js"></script>
+</body>
+</html>
