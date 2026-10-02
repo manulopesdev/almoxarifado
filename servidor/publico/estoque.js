@@ -63,13 +63,18 @@ form.addEventListener("submit", async (evento) => {
     return;
   }
 
-  const resposta = await fetch(rota, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ nome: nome, quantidade: qtd }),
-  });
+  try{
+    const resposta = await fetch(rota, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nome: nome, quantidade: qtd }),
+    });
 
-  const resultado = await resposta.json();
+    const resultado = await resposta.json();
+  } catch (erro) {
+    mensagem.classList.add("erro");
+    mensagem.textContent = "Não foi possível falar com o servidor.";
+  }
 
   if (resultado.ok) {
     mensagem.classList.remove("erro");
