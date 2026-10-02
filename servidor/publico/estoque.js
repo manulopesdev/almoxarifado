@@ -63,7 +63,7 @@ form.addEventListener("submit", async (evento) => {
     return;
   }
 
-  try{
+  try {
     const resposta = await fetch(rota, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -71,21 +71,23 @@ form.addEventListener("submit", async (evento) => {
     });
 
     const resultado = await resposta.json();
+
+    if (resultado.ok) {
+      mensagem.classList.remove("erro");
+      mensagem.classList.add("sucesso");
+      mensagem.textContent = `Operação de ${tipo} realizada com sucesso! ${nome}, ${sinal}${qtd}`;
+      form.reset();
+    } else {
+      mensagem.classList.remove("sucesso");
+      mensagem.classList.add("erro");
+      mensagem.textContent = resultado.motivo;
+    }
+
+    await carregarEstoque();
   } catch (erro) {
+    console.error("Falha na operação:", erro);
+    mensagem.classList.remove("sucesso");
     mensagem.classList.add("erro");
     mensagem.textContent = "Não foi possível falar com o servidor.";
   }
-
-  if (resultado.ok) {
-    mensagem.classList.remove("erro");
-    mensagem.classList.add("sucesso");
-    mensagem.textContent = `Operação de ${tipo} realizada com sucesso! ${nome}, ${sinal}${qtd}`;
-    form.reset();
-  } else {
-    mensagem.classList.remove("sucesso");
-    mensagem.classList.add("erro");
-    mensagem.textContent = resultado.motivo;
-  }
-
-  await carregarEstoque();
 });
